@@ -1,15 +1,6 @@
 
 const instagram = require("./modules/insta");
 
-//var email = "firmanagaragemkkcj.projetos@gmail.com";
-//var senha = "firma1361558!";
-//instagram.bot("firmanagaragemkkcj.projetos@gmail.com","firma1361558!","Oi");
-
-//access_token=599953481705443|cf2b7c3562edbea3b8261b4102c84951
-//api_key= 599953481705443|cf2b7c3562edbea3b8261b4102c84951
-//app id = 599953481705443 
-//token cliente = cf2b7c3562edbea3b8261b4102c84951
-
 const express = require('express');
 var cors = require('cors');
 const app = express();
