@@ -12,7 +12,7 @@ app.listen(3000, () => console.log("Server is running on port http://127.0.0.1:3
 
 const db = require("./modules/db");
 
-instagram.abrir_browser();  // função de teste 
+//instagram.abrir_browser();  // função de teste 
 
 (async () => {
 
