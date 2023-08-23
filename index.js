@@ -19,8 +19,8 @@ const db = require("./modules/db");
   console.log('Começou!');
 
   console.log('SELECT * FROM cadastro');
-  const db_cadastro = await db.selectCustomers();
-  console.log(db_cadastro);
+//  const db_cadastro = await db.selectCustomers();
+//  console.log(db_cadastro);
 })();
 
 
