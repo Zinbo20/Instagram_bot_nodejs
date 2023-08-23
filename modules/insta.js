@@ -60,37 +60,50 @@ async function bot(email, senha, boas_vindas) {
   await page.waitForSelector('[aria-label="Direct"]');
   await page.goto('https://www.instagram.com/direct/inbox/');delay(1000);
 
-  try {
-    await page.waitForSelector('[class="_a9-- _a9_1"]');
+
+
+ try {
+  await page.waitForSelector('[aria-label="Não usar essa atividade"]');
+  await page.click('[aria-label="Não usar essa atividade"]');
+  await page.goto('https://www.instagram.com/direct/inbox/');delay(1000);
+  }
+  catch (error) {
+    //console.log(error);
+  }
+
+try {
+    await page.waitForSelector('[class="_a9-- _a9_1"]');delay(1000);
     await page.click('[class="_a9-- _a9_1"]');
   }
   catch (error) {
-    console.log("Aviso");
     console.log(error);
-    await browser.close();
   }
+
+  await page.goto('https://www.instagram.com/direct/inbox/');delay(1000);
 
   navegando = false;
 
   status("Inicializado");
 
   while (2) {
+    delay(5);
     try {
-      var num_notifications = '[class="xwmz7sl xo1l8bm x1ncwhqj xyqdw3p x1mpkggp xg8j3zb x1t2a60a"]'
+      //var num_notifications = '[class="xwmz7sl xo1l8bm x1ncwhqj xyqdw3p x1mpkggp xg8j3zb x1t2a60a"]'
+      var num_notifications = '[class="xwmz7sl x1ncwhqj xo1l8bm xyqdw3p x1mpkggp xg8j3zb x1t2a60a"]'
       await page.waitForSelector(num_notifications);
       let element = await page.$(num_notifications);
       noti = await page.evaluate(el => el.textContent, element);
-      //console.log(noti);
+      console.log(noti);
     }
 
     catch (error) {
-      //console.log(error);
+      console.log(error);
       noti = 0;
     }
 
-    var entrar = null;  // var entrar = null;
+    //var entrar = null;  // var entrar = null;
 
-    if (noti != 0 && navegando == false && entrar == false) { //&& entrar == false
+    if (noti != 0 && navegando == false) { //&& entrar == false
       navegando = true;
 
       const ElementHandle = await page.$$('[role="listitem"]');
@@ -100,11 +113,13 @@ async function bot(email, senha, boas_vindas) {
 
         var elemento_nome = '[class="x1lliihq x193iq5w x6ikm8r x10wlt62 xlyipyv xuxw1ft"]'
         var elemento_apelido = '[class="x1i10hfl x1qjc9v5 xjbqb8w xjqpnuy xa49m3k xqeqjp1 x2hbi6w x13fuv20 xu3j5b3 x1q0q8m5 x26u7qi x972fbf xcfux6l x1qhh985 xm0m39n x9f619 x1ypdohk xdl72j9 x2lah0s xe8uvvx xdj266r x11i5rnm xat24cr x1mh8g0r x2lwn1j xeuugli xexx8yu x4uap5 x18d9i69 xkhd6sd x1n2onr6 x16tdsg8 x1hl2dhg xggy1nq x1ja2u2z x1t137rt x1o1ewxj x3x9cwd x1e5q0jg x13rtm0m x1q0g3np x87ps6o x1lku1pv x1a2a7pz xjp7ctv xeq5yr9"]'
-
         var href = await page.$eval(elemento_apelido, (elm) => elm.href);
-        href = href.replaceAll("/", " ");
-        var pattern = href.match(/\s(\w+)$/);
-        apelido = pattern[1];
+
+        //href = href.replaceAll("/", " ");
+        //var pattern = href.match(/\s(\w+)$/);
+        //apelido = pattern[1];
+
+        apelido = href;
 
         let element = await page.$(elemento_nome);
         var nome = await page.evaluate(el => el.textContent, element);
@@ -120,9 +135,12 @@ async function bot(email, senha, boas_vindas) {
         if (bool_received == false) {
           status("Enviando Mensagem de Recepção");
 
-          await page.type('[aria-label="Mensagem"]', boas_vindas);
-          var enviar = '[class="x1i10hfl xjqpnuy xa49m3k xqeqjp1 x2hbi6w xdl72j9 x2lah0s xe8uvvx xdj266r xat24cr x1mh8g0r x2lwn1j xeuugli x1hl2dhg xggy1nq x1ja2u2z x1t137rt x1q0g3np x1lku1pv x1a2a7pz x6s0dn4 xjyslct x1ejq31n xd10rxx x1sy0etr x17r0tee x9f619 x1ypdohk x1i0vuye xwhw2v2 xl56j7k x17ydfre x1f6kntn x2b8uid xlyipyv x87ps6o x14atkfc x1d5wrs8 x972fbf xcfux6l x1qhh985 xm0m39n xm3z3ea x1x8b98j x131883w x16mih1h xt0psk2 xt7dq6l xexx8yu x4uap5 x18d9i69 xkhd6sd x1n2onr6 xjbqb8w x1n5bzlp x173jzuc x1yc6y37 xfs2ol5"]'
-          await delay(1000);
+          var boas_vindas = "Bot Oi";
+
+          await page.waitForSelector('[aria-label="Mensagem"]');await delay(1000);
+          await page.type('[aria-label="Mensagem"]', boas_vindas);await delay(1000);
+          var enviar = '[class="x1i10hfl xjqpnuy xa49m3k xqeqjp1 x2hbi6w xdl72j9 x2lah0s xe8uvvx xdj266r xat24cr x1mh8g0r x2lwn1j xeuugli x1hl2dhg xggy1nq x1ja2u2z x1t137rt x1q0g3np x1lku1pv x1a2a7pz x6s0dn4 xjyslct x1ejq31n xd10rxx x1sy0etr x17r0tee x9f619 x1ypdohk x1i0vuye x1f6kntn xwhw2v2 xl56j7k x17ydfre x2b8uid xlyipyv x87ps6o x14atkfc xcdnw81 xjbqb8w xm3z3ea x1x8b98j x131883w x16mih1h x972fbf xcfux6l x1qhh985 xm0m39n xt0psk2 xt7dq6l xexx8yu x4uap5 x18d9i69 xkhd6sd x1n2onr6 x1n5bzlp x173jzuc x1yc6y37 xfs2ol5"]'
+          await page.waitForSelector(enviar);
           await page.click(enviar); delay(1000);
 
           client_received.push(nome);
